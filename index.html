@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <script src="./app.js" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- model -->
+    <h2>Your seat reservations</h2>
+
+    <p>
+      First name: <input data-bind="value:firstName" />
+      <span data-bind="text:firstName"></span>
+    </p>
+    <p>
+      Last name: <input data-bind="value:lastName" />
+      <span data-bind="text:lastName"></span>
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Passenger name</th>
+          <th>Meal</th>
+          <th>Surcharge</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+
+      <tbody data-bind="foreach:seats">
+        <tr>
+          <td><input data-bind="value: name" /></td>
+          <td>
+            <select
+              data-bind="options: $root.availableMeals, value: meal, optionsText: 'mealName'"
+            ></select>
+          </td>
+          <td data-bind="text: formattedPrice"></td>
+          <!-- <td data-bind="text:message()"></td> -->
+          <td>
+            <select
+              data-bind="options: $root.messages, value: message, optionsText: message().message"
+            ></select>
+          </td>
+          <td><a href="#" data-bind="click:$root.removeSeat">Remove</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <button data-bind="click:addSeat">Add seat</button>
+    <h3 data-bind="visible: totalSurcharge() > 0">
+      Total surcharge <span data-bind="text:totalSurcharge().toFixed(2)"></span>
+    </h3>
+  </body>
+</html>
